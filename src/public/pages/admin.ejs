@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - SynthCloud</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        clifford: '#da373d',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-100">
+    <!-- Navbar -->
+    <nav class="bg-gray-800 shadow">
+        <div class="container mx-auto px-4 py-2 flex justify-between items-center">
+            <h1 class="text-xl font-semibold text-white">Admin Dashboard</h1>
+            <ul class="flex space-x-4 items-center">
+                <li><a href="/" class="text-white hover:text-gray-300">Explore</a></li>
+                <!-- Avatar Redirecting to Profile Page -->
+                <li>
+                    <a href="profile.html">
+                        <img src="avatar.jpg" alt="Avatar" class="w-8 h-8 rounded-full">
+                    </a>
+                </li>
+                <!-- Gear Icon for Settings -->
+                <li>
+                    <a href="#" class="text-white hover:text-gray-300">
+                        <i class="material-icons">settings</i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-4 py-8">
+        <h2 class="text-2xl font-semibold mb-4">Profile</h2>
+
+        <!-- Profile Information -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden p-6 mb-8">
+            <div class="flex items-center">
+                <img src="profile_picture.jpg" alt="Profile Picture" class="w-16 h-16 rounded-full">
+                <div class="ml-4">
+                    <h3 class="text-lg font-semibold">John Doe</h3>
+                    <p class="text-gray-600">johndoe@example.com</p>
+                </div>
+            </div>
+            <div class="mt-4">
+                <p class="text-gray-600">With us from: 20.12.2022</p>
+            </div>
+        </div>
+
+        <!-- User Management Section -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden p-6">
+            <h3 class="text-xl font-semibold mb-4">User Management</h3>
+            <!-- User Table -->
+            <div class="-mx-4">
+                <table class="min-w-full">
+                    <thead>
+                        <tr class="bg-gray-200">
+                            <th class="px-4 py-2">ID</th>
+                            <th class="px-4 py-2">Name</th>
+                            <th class="px-4 py-2">Email</th>
+                            <th class="px-4 py-2">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="px-4 py-2">1</td>
+                            <td class="px-4 py-2">Jane Doe</td>
+                            <td class="px-4 py-2">janedoe@example.com</td>
+                            <td class="px-4 py-2">
+                                <button class="text-white bg-blue-500 px-2 py-1 rounded">Edit</button>
+                                <button class="text-white bg-red-500 px-2 py-1 rounded">Delete</button>
+                            </td>
+                        </tr>
+                        <!-- Additional user rows can be added here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Music Player -->
+    <div class="bg-gray-800 py-4 fixed bottom-0 w-full">
+        <div class="container mx-auto px-4 flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+                <button class="text-white"><i class="material-icons">skip_previous</i></button>
+                <button class="text-white"><i class="material-icons">play_arrow</i></button>
+                <button class="text-white"><i class="material-icons">skip_next</i></button>
+            </div>
+            <div class="w-2/3">
+                <div class="bg-gray-600 h-2 rounded-full"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Google Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</body>
+</html>

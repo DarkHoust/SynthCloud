@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        clifford: '#da373d',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-100">
+    <!-- Navbar -->
+    <nav class="bg-gray-800 fixed top-0 left-0 w-full z-10">
+        <div class="container mx-auto px-4 py-2 flex justify-between items-center">
+            <h1 class="text-xl font-semibol text-white font-semibold">SynthCloud</h1>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-4 py-20 flex justify-center items-center h-screen">
+        <div class="auth-bg rounded-lg p-8">
+            <h2 class="text-2xl font-semibold mb-4 text-center">Login</h2>
+            <form class="space-y-4" method="post" action="/auth">
+                <div>
+                    <label for="name" class="block text-gray-600">Username</label>
+                    <input type="text" id="name" name="name" class="w-full border rounded-md px-3 py-2">
+                </div>
+                <div>
+                    <label for="password" class="block text-gray-600">Password</label>
+                    <input type="password" id="password" name="password" class="w-full border rounded-md px-3 py-2">
+                </div>
+                <p class="mt-2 text-secondary ">Does not have an account? <a class="" href="/register" style="text-decoration-line: none;">Register</a></p>
+                <button type="submit" class="bg-gray-800 text-white rounded-md py-2 px-4 w-full mx-auto">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Google Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</body>
+</html>

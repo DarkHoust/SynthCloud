@@ -1,0 +1,32 @@
+{
+  "name": "synthcloud",
+  "version": "1.0.0",
+  "description": "SoundCloud alternative",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DarkHoust/SynthCloud.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DarkHoust/SynthCloud/issues"
+  },
+  "homepage": "https://github.com/DarkHoust/SynthCloud#readme",
+  "dependencies": {
+    "axios": "^1.6.7",
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.2",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "express-session": "^1.18.0",
+    "mongoose": "^8.1.3",
+    "path": "^0.12.7"
+  }
+}

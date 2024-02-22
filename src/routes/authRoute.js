@@ -1,0 +1,55 @@
+const express = require('express');
+const router = express.Router();
+const User = require('../config/userSchema');
+const path = require('path');
+const bcrypt = require('bcrypt');
+
+
+router.get('/auth', async (req, res) => {
+    res.render(path.join(__dirname, '..', 'public', 'pages', 'login.ejs'));
+})
+
+router.post('/auth', async (req, res) => {
+    const { name, password } = req.body;
+
+    const user = await User.findOne({ username: name });
+
+    if (user) {
+        //Comparing input password with hashed password
+        const passwordMatch = await bcrypt.compare(password, user.password);
+
+        if (passwordMatch) {
+            req.session.user = {
+                username: user.username,
+                password: user.password,
+                mail: user.mail,
+                isAdmin: user.isAdmin
+            };
+            res.redirect('/');
+        } else {
+            res.redirect('/auth');
+        }
+    } else {
+        res.redirect('/auth');
+    }
+})
+
+router.get('/register', async (req, res) => {
+    res.render(path.join(__dirname, '..', 'public', 'pages', 'registration.ejs'));
+})
+
+router.post('/register', async (req, res) => {
+    const {name, password, email} = req.body;
+
+    //Encrypting password
+    const encryptedPassword = await bcrypt.hash(password, 10);
+
+    console.log(encryptedPassword);
+
+    let newUser = new User({username: name, mail: email, password: encryptedPassword, isAdmin: false});
+    await newUser.save();
+    
+    res.redirect('/auth');
+})
+
+module.exports = router;
