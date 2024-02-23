@@ -3,10 +3,14 @@ const router = express.Router();
 const path = require('path');
 const requireAuth = require('../middlewares/requireAuth');
 const User = require('../config/userSchema');
+const Music = require('../config/musicSchema');
+
 
 
 router.get('/', requireAuth, async(req, res) => {
-    res.render(path.join(__dirname, '..', 'public', 'pages', 'main.ejs'), {});
+    const musics = await Music.find();
+
+    res.render(path.join(__dirname, '..', 'public', 'pages', 'main.ejs'), {musicInfo: musics});
 })
 
 router.get('/profile', requireAuth, async(req, res) => {

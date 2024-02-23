@@ -2,3 +2,20 @@
     background-color: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(10px);
 }
+
+/* CSS Styling */
+.music-item {
+    transition: transform 0.3s; /* Add transition for smooth animation */
+}
+
+.music-item:hover {
+    transform: scale(1.05); /* Increase size on hover */
+}
+
+.play-button {
+    display: none; /* Initially hide the play button */
+}
+
+.music-item:hover .play-button {
+    display: block; /* Show the play button on hover */
+}

@@ -1,7 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const multer  = require('multer');
+const path = require('path');
+const User = require('../config/musicSchema');
 const firebase = require('firebase/app');
+const { getStorage, ref, uploadBytesResumable, getDownloadURL } = require('firebase/storage');
+const Music = require('../config/musicSchema');
 require('firebase/storage');
 
 const firebaseConfig = {
@@ -13,41 +17,31 @@ const firebaseConfig = {
     appId: "1:471941820147:web:b0c696be9eded39d8e5186",
     measurementId: "G-VJ3DC033G5"
 };
-
-// Initialize Firebase with the client configuration
 firebase.initializeApp(firebaseConfig);
+const upload = multer();
 
-// Create a Multer instance to handle file uploads
-const upload = multer({ dest: 'uploads/' });
-
-// Serve the upload page
 router.get('/upload', (req, res) => {
-    res.sendFile(__dirname, '..', 'public', 'pages', 'upload.ejs');
+    res.render(path.join(__dirname, '..', 'public', 'pages', 'upload.ejs'), {});
 });
 
-// Define a route for uploading files
 router.post('/upload', upload.fields([{ name: 'cover', maxCount: 1 }, { name: 'musicFile', maxCount: 1 }]), async (req, res) => {
     try {
         const { songName, description, artistName } = req.body;
         const coverFile = req.files['cover'][0];
         const musicFile = req.files['musicFile'][0];
 
-        // Upload cover image and music file to Firebase Storage
-        const storageRef = firebase.storage().ref();
-        const coverUploadTask = storageRef.child(`covers/${coverFile.originalname}`).put(coverFile.path);
-        const musicUploadTask = storageRef.child(`music/${musicFile.originalname}`).put(musicFile.path);
+        const storage = getStorage();
+        await uploadBytesResumable(ref(storage, `${coverFile.originalname}`), coverFile.buffer);
+        await uploadBytesResumable(ref(storage, `${musicFile.originalname}`), musicFile.buffer);
 
-        // Wait for both uploads to complete
-        await Promise.all([coverUploadTask, musicUploadTask]);
+        const coverUrl = await getDownloadURL(ref(storage, `${coverFile.originalname}`));
+        const musicUrl = await getDownloadURL(ref(storage, `${musicFile.originalname}`));
+        console.log(coverUrl, musicUrl);
 
-        // Get download URLs for the uploaded files
-        const coverUrl = await coverUploadTask.snapshot.ref.getDownloadURL();
-        const musicUrl = await musicUploadTask.snapshot.ref.getDownloadURL();
+        let newMusic = new Music({songName: songName, artist: artistName, desciption: description, coverURL: coverUrl, musicURL: musicUrl});
+        newMusic.save();
 
-        // Perform any additional database operations or save URLs as needed
-        // For example, you could use Firebase Realtime Database or Firestore to store the metadata
-
-        res.status(200).send('Song uploaded successfully.');
+        res.status(200).redirect('/');
     } catch (error) {
         console.error('Error uploading song:', error);
         res.status(500).send('Error uploading song.');
