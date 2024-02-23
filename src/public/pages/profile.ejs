@@ -27,8 +27,8 @@
                 <li><a href="/" class="text-white hover:text-gray-300">Explore</a></li>
                 <!-- Avatar Redirecting to Profile Page -->
                 <li>
-                    <a href="profile.html">
-                        <img src="avatar.jpg" alt="Avatar" class="w-8 h-8 rounded-full">
+                    <a href="/profile">
+                        <img src="https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fKbMhZMIb07mCJ6esXL.jpg" alt="Avatar" class="w-8 h-8 rounded-full">
                     </a>
                 </li>
                 <!-- Gear Icon for Settings -->
@@ -49,12 +49,18 @@
         <!-- Profile Information -->
         <div class="bg-white rounded-lg shadow-md overflow-hidden p-6 mb-8 flex justify-between items-center">
             <div class="flex items-center">
-                <img src="profile_picture.jpg" alt="Profile Picture" class="w-16 h-16 rounded-full">
+                <img src="https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fKbMhZMIb07mCJ6esXL.jpg" alt="Profile Picture" class="w-16 h-16 rounded-full">
                 <div class="ml-4">
                     <h3 class="text-lg font-semibold mb-1"><%= userInfo.username %></h3>
                     <p class="text-gray-600 mb-1"><%= userInfo.mail %></p>
                 </div>
             </div>
+            <!-- Admin Button -->
+            <% if(userInfo.isAdmin) {%>
+            <button name="adminBtn" class="text-gray-600 hover:text-gray-900 ms-auto me-7" onclick="window.location.href = '/admin'; " >
+                <i class="material-icons">manage_accounts</i>
+            </button>
+            <%}%>
             <!-- Logout Button -->
             <button name="logoutBtn" class="text-gray-600 hover:text-gray-900" onclick="window.location.href = '/logout'; " >
                 <i class="material-icons">logout</i>

@@ -7,6 +7,7 @@ const app = express();
 const controller = require('./routes/controller');
 const authRoute = require('./routes/authRoute');
 const requireAuth = require('./middlewares/requireAuth');
+const fmRoute = require('./routes/fileManagementRoute');
 
 //MongoDB Connection
 connectMongoDB();
@@ -20,6 +21,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //Routes
 app.use('/', controller);
 app.use('/', authRoute);
+app.use('/', fmRoute);
 
 
 app.all("*", async (req,res) => {

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SynthCloud - Upload</title>
+
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.tailwindcss.com" rel="stylesheet">
+
+    <!-- Google Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+</head>
+<body class="bg-gray-100">
+
+<!-- Navbar -->
+<nav class="bg-gray-800 shadow">
+    <div class="container mx-auto px-4 py-2 flex justify-between items-center">
+        <h1 class="text-xl font-semibold text-white"><a href="/">SynthCloud</a></h1>
+        <ul class="flex space-x-4 items-center">
+            <li><a href="/" class="text-white hover:text-gray-300">Explore</a></li>
+            <!-- Avatar Redirecting to Profile Page -->
+            <li>
+                <a href="/profile">
+                    <img src="https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fKbMhZMIb07mCJ6esXL.jpg" alt="Avatar" class="w-8 h-8 rounded-full">
+                </a>
+            </li>
+            <!-- Gear Icon for Settings -->
+            <li>
+                <a href="#" class="text-white hover:text-gray-300">
+                    <i class="material-icons">settings</i>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Main Content -->
+<div class="container mx-auto px-4 py-8">
+    <h2 class="text-2xl font-semibold mb-4">Upload Song</h2>
+
+    <form action="/upload" method="post" enctype="multipart/form-data" class="bg-white shadow-md rounded-lg px-8 pt-6 pb-8 mb-4">
+        <div class="mb-4">
+            <label for="songName" class="block text-gray-700 text-sm font-bold mb-2">Song Name:</label>
+            <input type="text" id="songName" name="songName" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+        </div>
+        <div class="mb-4">
+            <label for="description" class="block text-gray-700 text-sm font-bold mb-2">Description:</label>
+            <textarea id="description" name="description" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
+        </div>
+        <div class="mb-4">
+            <label for="artistName" class="block text-gray-700 text-sm font-bold mb-2">Artist Name:</label>
+            <input type="text" id="artistName" name="artistName" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+        </div>
+        <div class="mb-4">
+            <label for="cover" class="block text-gray-700 text-sm font-bold mb-2">Cover Image:</label>
+            <input type="file" id="cover" name="cover" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+        </div>
+        <div class="mb-4">
+            <label for="musicFile" class="block text-gray-700 text-sm font-bold mb-2">Music File:</label>
+            <input type="file" id="musicFile" name="musicFile" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+        </div>
+        <div class="flex items-center justify-between">
+            <button type="submit" class="bg-gray-800 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Upload</button>
+        </div>
+    </form>
+</div>
+
+<!-- Google Material Icons -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+</body>
+</html>

@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const path = require('path');
 const requireAuth = require('../middlewares/requireAuth');
-const requireAdmin = require('../middlewares/requireAdmin')
+const User = require('../config/userSchema');
 
 
 router.get('/', requireAuth, async(req, res) => {
@@ -15,7 +15,8 @@ router.get('/profile', requireAuth, async(req, res) => {
 
 router.get('/admin', requireAuth,  async(req, res) => {
     if (req.session.user.isAdmin){
-        res.render(path.join(__dirname, '..', 'public', 'pages', 'admin.ejs'), {userInfo: req.session.user});
+        const users = await User.find();
+        res.render(path.join(__dirname, '..', 'public', 'pages', 'admin.ejs'), {userInfo: req.session.user, users: users});
     } else {
         res.status(403).send("Access is forbidden, you don't have admin's permission");
     }
