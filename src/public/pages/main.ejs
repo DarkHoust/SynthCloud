@@ -28,7 +28,8 @@
         <div class="container mx-auto px-4 py-2 flex justify-between items-center">
             <h1 class="text-xl font-semibold text-white"><a href="/">SynthCloud</a></h1>
             <ul class="flex space-x-4 items-center">
-                <li><a href="/" class="text-white hover:text-gray-300">Explore</a></li>
+                <li><a href="/" class="text-white hover:text-gray-300 me-5">Explore</a></li>
+                <li><a href="/upload" class="text-white hover:text-gray-300 me-5">Upload</a></li>
                 <!-- Avatar Redirecting to Profile Page -->
                 <li>
                     <a href="/profile">
@@ -37,8 +38,8 @@
                 </li>
                 <!-- Gear Icon for Settings -->
                 <li>
-                    <a href="#" class="text-white hover:text-gray-300">
-                        <i class="material-icons">settings</i>
+                    <a href="#" class="text-white hover:text-gray-300 ms-5">
+                        <i class="material-icons pt-1">settings</i>
                     </a>
                 </li>
             </ul>
@@ -52,11 +53,10 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="musicGrid">
             <% musicInfo.forEach((musicInfo, index) => { %>
-                <div class="bg-white rounded-lg shadow-md overflow-hidden flex items-center music-item" data-index="<%= index %>" data-src="<%= musicInfo.musicURL %>" data-artist="<%= musicInfo.artist %>" data-songName="<%= musicInfo.songName %>">
+                <div class="bg-white rounded-lg shadow-md overflow-hidden flex items-center music-item" data-index="<%= index %>" data-src="<%= musicInfo.musicURL %>" data-songname="<%= musicInfo.songName %>" data-artist="<%= musicInfo.artist %>" data-description="<%=musicInfo.desciption %>">
                     <img src="<%= musicInfo.coverURL %>" alt="Music Cover" class="w-1/3">
                     <div class="p-4 flex-grow">
-                        <h3 class="text-lg font-semibold"><%= musicInfo.artist %> - <%= musicInfo.songName %></h3>
-                        <p class="text-gray-600"><%= musicInfo.desciption %></p>
+                        <h3 class="text-lg font-semibold  song-title"> <%= musicInfo.songName %> <br> <span class="text-sm text-gray-600"><%= musicInfo.artist %></span></h3>
                     </div>
                 </div>
             <% }) %>            
@@ -68,24 +68,38 @@
     </audio>    
 
     <!-- Music Player -->
-    <div class="bg-gray-800 py-4 fixed bottom-0 w-full">
+    <div class="bg-gray-800 py-4 fixed bottom-0 w-full" style="z-index: 1;">
         <div class="container mx-auto px-4 flex items-center justify-between">
             <div class="flex items-center space-x-4">
                 <button class="text-white" id="previousButton"><i class="material-icons pt-1">skip_previous</i></button>
                 <button class="text-white" id="playButton"><i class="material-icons pt-1">play_arrow</i></button>
                 <button class="text-white" id="nextButton"><i class="material-icons pt-1">skip_next</i></button>
-                <p id="music-data" class= "text-white">Choose one of the tracks above</p>
+                <p id="music-data" class= "text-white"><%= musicInfo[0].artist%> - <%= musicInfo[0].songName %></p>
             </div>
             <div class="w-2/3">
                 <div class="flex items-center justify-between">
-                    <div id="currentDuration" class="text-white"></div>
+                    <div id="currentDuration" class="text-white">0:00</div>
                     <div class="bg-gray-600 h-2 w-full mx-4 rounded-full">
                         <div id="progressBar" class="bg-white h-2 rounded-full"></div>
                     </div>
-                    <div id="maxDuration" class="text-white"></div>
+                    <div id="maxDuration" class="text-white me-5">0:00</div>
+                    <!--Info Button-->
+                    <button id="infoButton" class="text-white ml-4 pt-1"><i class="material-icons">info</i></button>
                 </div>
             </div>
         </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="modal" class="fixed top-12 right-0 bottom-16 bg-gray-800 sm:w-full md:w-1/2 lg:w-1/3 hidden p-8">
+        <div class="flex justify-end">
+            <button id="closeModal" class="text-white hover:text-gray-500 focus:outline-none">
+                <i class="material-icons">close</i>
+            </button>
+        </div>
+        <h2 class="text-2xl text-white font-semibold mb-4" id="modalTitle">Song Title</h2>
+        <p class="text-gray-400 mb-4" id="modalArtist">Artist Name</p>
+        <p class="text-gray-400" id="modalDescription">Song Description</p>
     </div>
 
 

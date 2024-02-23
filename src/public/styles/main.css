@@ -5,17 +5,17 @@
 
 /* CSS Styling */
 .music-item {
-    transition: transform 0.3s; /* Add transition for smooth animation */
+    transition: transform 0.3s;
 }
 
 .music-item:hover {
-    transform: scale(1.05); /* Increase size on hover */
+    transform: scale(1.05);
 }
 
 .play-button {
-    display: none; /* Initially hide the play button */
+    display: none;
 }
 
 .music-item:hover .play-button {
-    display: block; /* Show the play button on hover */
+    display: block;
 }
