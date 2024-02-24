@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile - SynthCloud</title>
+    <title>Search for Lyrics</title>
+
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -17,6 +18,7 @@
             }
         }
     </script>
+
 </head>
 <body class="bg-gray-100">
     <!-- Navbar -->
@@ -43,36 +45,36 @@
         </div>
     </nav>
 
-
     <!-- Main Content -->
     <div class="container mx-auto px-4 py-8">
-        <h2 class="text-2xl font-semibold mb-4">Profile</h2>
+        <h2 class="text-2xl font-semibold mb-4">Search for Lyrics</h2>
 
-        <!-- Profile Information -->
-        <div class="bg-white rounded-lg shadow-md overflow-hidden p-6 mb-8 flex justify-between items-center">
-            <div class="flex items-center">
-                <img src="https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fKbMhZMIb07mCJ6esXL.jpg" alt="Profile Picture" class="w-16 h-16 rounded-full">
-                <div class="ml-4">
-                    <h3 class="text-lg font-semibold mb-1"><%= userInfo.username %></h3>
-                    <p class="text-gray-600 mb-1"><%= userInfo.mail %></p>
-                </div>
+        <form action="/lyrics" method="post" class="bg-white shadow-md rounded-lg px-8 pt-6 pb-8 mb-4">
+            <div class="mb-4">
+                <label for="artist" class="block text-gray-700 text-sm font-bold mb-2">Artist:</label>
+                <input type="text" id="artist" name="artist" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
             </div>
-            <!-- Admin Button -->
-            <% if(userInfo.isAdmin) {%>
-            <button name="adminBtn" class="text-gray-600 hover:text-gray-900 ms-auto me-7" onclick="window.location.href = '/admin'; " >
-                <i class="material-icons">manage_accounts</i>
-            </button>
-            <%}%>
-            <!-- Logout Button -->
-            <button name="logoutBtn" class="text-gray-600 hover:text-gray-900" onclick="window.location.href = '/logout'; " >
-                <i class="material-icons">logout</i>
-            </button>
+            <div class="mb-4">
+                <label for="track" class="block text-gray-700 text-sm font-bold mb-2">Track Name:</label>
+                <input type="text" id="track" name="track" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+            <div class="flex items-center justify-between">
+                <input type="submit" value="Search" class="bg-gray-800 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            </div>
+        </form>
+
+        <div class="container mx-auto px-4 py-8">
+            <% if (lyrics) { %>
+                <h2 class="text-2xl font-semibold mb-4"><%= artist %> - <%= track %></h2>
+                <pre><%= lyrics %></pre>
+            <% } else if (artist && track) { %>
+                <p>No lyrics found for <%= artist %> - <%= track %>.</p>
+            <% } %>
         </div>
-
-
     </div>
 
     <!-- Google Material Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 </body>
 </html>

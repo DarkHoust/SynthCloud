@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const multer  = require('multer');
 const path = require('path');
+const requireAuth = require('../middlewares/requireAuth');
 const User = require('../config/musicSchema');
 const firebase = require('firebase/app');
 const { getStorage, ref, uploadBytesResumable, getDownloadURL } = require('firebase/storage');
@@ -20,7 +21,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const upload = multer();
 
-router.get('/upload', (req, res) => {
+router.get('/upload', requireAuth, (req, res) => {
     res.render(path.join(__dirname, '..', 'public', 'pages', 'upload.ejs'), {});
 });
 

@@ -1,2 +1,3 @@
 # Reducing size of the project 
 node_modules
+.env

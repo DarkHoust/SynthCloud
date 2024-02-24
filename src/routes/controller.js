@@ -7,13 +7,13 @@ const Music = require('../config/musicSchema');
 
 
 
-router.get('/', requireAuth, async(req, res) => {
+router.get('/', requireAuth, async (req, res) => {
     const musics = await Music.find();
 
     res.render(path.join(__dirname, '..', 'public', 'pages', 'main.ejs'), {musicInfo: musics});
 })
 
-router.get('/profile', requireAuth, async(req, res) => {
+router.get('/profile', requireAuth, async (req, res) => {
     res.render(path.join(__dirname, '..', 'public', 'pages', 'profile.ejs'), {userInfo: req.session.user});
 })
 

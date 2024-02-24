@@ -8,6 +8,7 @@ const controller = require('./routes/controller');
 const authRoute = require('./routes/authRoute');
 const requireAuth = require('./middlewares/requireAuth');
 const fmRoute = require('./routes/fileManagementRoute');
+const findLyricsRoute = require('./routes/findLyricsRoute');
 
 //MongoDB Connection
 connectMongoDB();
@@ -22,6 +23,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', controller);
 app.use('/', authRoute);
 app.use('/', fmRoute);
+app.use('/', findLyricsRoute)
 
 
 app.all("*", async (req,res) => {
