@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search for Lyrics</title>
+    <title>Settings</title>
+    <link rel="stylesheet" href="../styles/main.css">
 
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -18,7 +19,6 @@
             }
         }
     </script>
-
 </head>
 <body class="bg-gray-100">
     <!-- Navbar -->
@@ -47,34 +47,18 @@
 
     <!-- Main Content -->
     <div class="container mx-auto px-4 py-8">
-        <h2 class="text-2xl font-semibold mb-4">Search for Lyrics</h2>
-
-        <form action="/lyrics" method="post" class="bg-white shadow-md rounded-lg px-8 pt-6 pb-8 mb-4">
-            <div class="mb-4">
-                <label for="artist" class="block text-gray-700 text-sm font-bold mb-2">Artist:</label>
-                <input type="text" id="artist" name="artist" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-            </div>
-            <div class="mb-4">
-                <label for="track" class="block text-gray-700 text-sm font-bold mb-2">Track Name:</label>
-                <input type="text" id="track" name="track" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-            </div>
-            <div class="flex items-center justify-between">
-                <input type="submit" value="Search" class="bg-gray-800 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-            </div>
+        <h2 class="text-2xl font-semibold mb-4">Settings</h2>
+        <p>Select your language:</p>
+        <form id="languageForm" class="space-y-2" method="post" action="/save-language">
+            <input type="radio" id="english" name="language" value="english" class="mr-2">
+            <label for="english">English</label><br>
+            <input type="radio" id="russian" name="language" value="russian" class="mr-2">
+            <label for="russian">Russian</label><br>
+            <button type="submit" class="bg-gray-800 text-white rounded-md py-2 px-4">Save</button>
         </form>
-
-        <div class="container mx-auto px-4 py-8">
-            <% if (lyrics) { %>
-                <h2 class="text-2xl font-semibold mb-4"><%= artist %> - <%= track %></h2>
-                <pre><%= lyrics %></pre>
-            <% } else if (artist && track) { %>
-                <p>No lyrics found for <%= artist %> - <%= track %>.</p>
-            <% } %>
-        </div>
     </div>
 
     <!-- Google Material Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
 </body>
 </html>

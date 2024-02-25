@@ -170,9 +170,18 @@ document.addEventListener('DOMContentLoaded', () => {
             const modalArtist = document.getElementById('modalArtist');
             const modalDescription = document.getElementById('modalDescription');
         
-            modalTitle.textContent = currentMusicItem.dataset.songname;
-            modalArtist.textContent = `By ${currentMusicItem.dataset.artist}`;
-            modalDescription.textContent = currentMusicItem.dataset.description;
+            if (preferredLanguage === 'english') {
+                modalTitle.textContent = currentMusicItem.dataset.songname;
+                modalArtist.textContent = `By ${currentMusicItem.dataset.artist}`;
+                modalDescription.textContent = currentMusicItem.dataset.description;
+            } else if (preferredLanguage === 'russian') {
+                // modalTitle.textContent = currentMusicItem.dataset.russianSongname;
+                // modalArtist.textContent = `От ${currentMusicItem.dataset.russianArtist}`;
+                // modalDescription.textContent = currentMusicItem.dataset.russianDescription;
+                modalTitle.textContent = currentMusicItem.dataset.songname;
+                modalArtist.textContent = `От ${currentMusicItem.dataset.artist}`;
+                modalDescription.textContent = currentMusicItem.dataset.description;
+            }
         
             // Show modal
             modal.classList.remove('hidden');
@@ -187,9 +196,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const modalArtist = document.getElementById('modalArtist');
         const modalDescription = document.getElementById('modalDescription');
 
-        modalTitle.textContent = musicItem.dataset.songname;
-        modalArtist.textContent = `By ${musicItem.dataset.artist}`;
-        modalDescription.textContent = musicItem.dataset.description;
+        if (preferredLanguage === 'english') {
+            modalTitle.textContent = currentMusicItem.dataset.songname;
+            modalArtist.textContent = `By ${currentMusicItem.dataset.artist}`;
+            modalDescription.textContent = currentMusicItem.dataset.description;
+        } else if (preferredLanguage === 'russian') {
+            // modalTitle.textContent = currentMusicItem.dataset.russianSongname;
+            // modalArtist.textContent = `От ${currentMusicItem.dataset.russianArtist}`;
+            // modalDescription.textContent = currentMusicItem.dataset.russianDescription;
+            modalTitle.textContent = currentMusicItem.dataset.songname;
+            modalArtist.textContent = `От ${currentMusicItem.dataset.artist}`;
+            modalDescription.textContent = currentMusicItem.dataset.description;
+        }
     }
 
     closeButton.addEventListener('click', () => {

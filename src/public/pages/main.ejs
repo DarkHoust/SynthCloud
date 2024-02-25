@@ -21,6 +21,10 @@
         }
     </script>
 
+    <script>
+        const preferredLanguage = '<%= preferredLanguage %>';
+    </script>
+
 </head>
 <body class="bg-gray-100">
     <!-- Navbar -->
@@ -28,9 +32,9 @@
         <div class="container mx-auto px-4 py-2 flex justify-between items-center">
             <h1 class="text-xl font-semibold text-white"><a href="/">SynthCloud</a></h1>
             <ul class="flex space-x-4 items-center">
-                <li><a href="/" class="text-white hover:text-gray-300 me-5">Explore</a></li>
-                <li><a href="/lyrics" class="text-white hover:text-gray-300 me-5">Lyrics</a></li>
-                <li><a href="/upload" class="text-white hover:text-gray-300 me-5">Upload</a></li>
+                <li><a href="/" class="text-white hover:text-gray-300 me-5"><% if (preferredLanguage === 'english') { %>Explore<% } else if (preferredLanguage === 'russian') { %>Главное<% } %></a></li>
+                <li><a href="/lyrics" class="text-white hover:text-gray-300 me-5"><% if (preferredLanguage === 'english') { %>Lyrics<% } else if (preferredLanguage === 'russian') { %>Текст песни<% } %></a></li>
+                <li><a href="/upload" class="text-white hover:text-gray-300 me-5"><% if (preferredLanguage === 'english') { %>Upload<% } else if (preferredLanguage === 'russian') { %>Загрузить<% } %></a></li>
                 <!-- Avatar Redirecting to Profile Page -->
                 <li>
                     <a href="/profile">
@@ -39,7 +43,7 @@
                 </li>
                 <!-- Gear Icon for Settings -->
                 <li>
-                    <a href="#" class="text-white hover:text-gray-300 ms-5">
+                    <a href="/settings" class="text-white hover:text-gray-300 ms-5">
                         <i class="material-icons pt-1">settings</i>
                     </a>
                 </li>
@@ -50,7 +54,7 @@
 
     <!-- Main Content -->
     <div class="container mx-auto px-4 py-8">
-        <h2 class="text-2xl font-semibold mb-4">Musics</h2>
+        <h2 class="text-2xl font-semibold mb-4"><% if (preferredLanguage === 'english') { %>Musics<% } else if (preferredLanguage === 'russian') { %>Музыки<% } %></h2>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="musicGrid">
             <% musicInfo.forEach((musicInfo, index) => { %>
@@ -64,9 +68,7 @@
         </div>
     </div>
 
-    <audio id="audio" controls style="display: none;">
-        Your browser does not support the audio element.
-    </audio>    
+    <audio id="audio" controls style="display: none;"></audio>    
 
     <!-- Music Player -->
     <div class="bg-gray-800 py-4 fixed bottom-0 w-full" style="z-index: 1;">
@@ -98,9 +100,9 @@
                 <i class="material-icons">close</i>
             </button>
         </div>
-        <h2 class="text-2xl text-white font-semibold mb-4" id="modalTitle">Song Title</h2>
-        <p class="text-gray-400 mb-4" id="modalArtist">Artist Name</p>
-        <p class="text-gray-400" id="modalDescription">Song Description</p>
+        <h2 class="text-2xl text-white font-semibold mb-4" id="modalTitle"><% if (preferredLanguage === 'english') { %>Song Title<% } else if (preferredLanguage === 'russian') { %>Название песни<% } %></h2>
+        <p class="text-gray-400 mb-4" id="modalArtist"><% if (preferredLanguage === 'english') { %>Artist<% } else if (preferredLanguage === 'russian') { %>Автор<% } %></p>
+        <p class="text-gray-400" id="modalDescription"><% if (preferredLanguage === 'english') { %>Song Description<% } else if (preferredLanguage === 'russian') { %>Об песне<% } %></p>
     </div>
 
 

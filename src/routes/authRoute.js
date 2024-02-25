@@ -3,10 +3,14 @@ const router = express.Router();
 const User = require('../config/userSchema');
 const path = require('path');
 const bcrypt = require('bcrypt');
-
+const axios = require('axios');
 
 router.get('/auth', async (req, res) => {
-    res.render(path.join(__dirname, '..', 'public', 'pages', 'login.ejs'));
+    const binaryJazzURL = 'https://binaryjazz.us/wp-json/genrenator/v1/story/';
+    const response = await axios.get(binaryJazzURL);
+    const musicQuotes = response.data;
+
+    res.render(path.join(__dirname, '..', 'public', 'pages', 'login.ejs'), {quotes: musicQuotes});
 })
 
 router.post('/auth', async (req, res) => {
@@ -35,7 +39,10 @@ router.post('/auth', async (req, res) => {
 })
 
 router.get('/register', async (req, res) => {
-    res.render(path.join(__dirname, '..', 'public', 'pages', 'registration.ejs'));
+    const binaryJazzURL = 'https://binaryjazz.us/wp-json/genrenator/v1/story/';
+    const response = await axios.get(binaryJazzURL);
+    const musicQuotes = response.data;
+    res.render(path.join(__dirname, '..', 'public', 'pages', 'registration.ejs'), {quotes: musicQuotes});
 })
 
 router.post('/register', async (req, res) => {

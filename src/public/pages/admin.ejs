@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - SynthCloud</title>
+    <title>Admin - SynthCloud</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -22,11 +22,11 @@
     <!-- Navbar -->
     <nav class="bg-gray-800 shadow">
         <div class="container mx-auto px-4 py-2 flex justify-between items-center">
-            <h1 class="text-xl font-semibold text-white"><a href="/">Admin Dashboard</a></h1>
+            <h1 class="text-xl font-semibold text-white"><a href="/">SynthCloud</a></h1>
             <ul class="flex space-x-4 items-center">
-                <li><a href="/" class="text-white hover:text-gray-300 me-5">Explore</a></li>
-                <li><a href="/lyrics" class="text-white hover:text-gray-300 me-5">Lyrics</a></li>
-                <li><a href="/upload" class="text-white hover:text-gray-300 me-5">Upload</a></li>
+                <li><a href="/" class="text-white hover:text-gray-300 me-5"><% if (preferredLanguage === 'english') { %>Explore<% } else if (preferredLanguage === 'russian') { %>Главное<% } %></a></li>
+                <li><a href="/lyrics" class="text-white hover:text-gray-300 me-5"><% if (preferredLanguage === 'english') { %>Lyrics<% } else if (preferredLanguage === 'russian') { %>Текст песни<% } %></a></li>
+                <li><a href="/upload" class="text-white hover:text-gray-300 me-5"><% if (preferredLanguage === 'english') { %>Upload<% } else if (preferredLanguage === 'russian') { %>Загрузить<% } %></a></li>
                 <!-- Avatar Redirecting to Profile Page -->
                 <li>
                     <a href="/profile">
@@ -35,7 +35,7 @@
                 </li>
                 <!-- Gear Icon for Settings -->
                 <li>
-                    <a href="#" class="text-white hover:text-gray-300 ms-5">
+                    <a href="/settings" class="text-white hover:text-gray-300 ms-5">
                         <i class="material-icons pt-1">settings</i>
                     </a>
                 </li>
@@ -46,35 +46,40 @@
 
     <!-- Main Content -->
     <div class="container mx-auto px-4 py-8">
-        <h2 class="text-2xl font-semibold mb-4">Profile</h2>
+        <!-- Section for choosing between user and music -->
+        <div class="mb-4">
+            <button id="showUsersBtn" class="bg-blue-500 text-white px-4 py-2 rounded mr-4"><% if (preferredLanguage === 'english') { %>Users<% } else if (preferredLanguage === 'russian') { %>Пользователи<% } %></button>
+            <button id="showMusicBtn" class="bg-blue-500 text-white px-4 py-2 rounded"><% if (preferredLanguage === 'english') { %>Musics<% } else if (preferredLanguage === 'russian') { %>Музыки<% } %></button>
+        </div>
 
         <!-- User Management Section -->
-        <div class="bg-white rounded-lg shadow-md overflow-hidden p-6">
-            <h3 class="text-xl font-semibold mb-4">User Management</h3>
+        <div id="userManagementSection" class="bg-white rounded-lg shadow-md overflow-hidden p-6">
+            <h3 class="text-xl font-semibold mb-4">
+                <% if (preferredLanguage === 'english') { %>Users<% } else if (preferredLanguage === 'russian') { %>Пользователи<% } %>
+            </h3>
             <!-- User Table -->
             <div class="-mx-4">
                 <table class="min-w-full">
                     <thead>
                         <tr class="bg-gray-200">
-                            <th class="px-4 py-2">ID</th>
-                            <th class="px-4 py-2">Username</th>
-                            <th class="px-4 py-2">Created At</th>
-                            <th class="px-4 py-2">Updated At</th>
-                            <th class="px-4 py-2">Admin</th>
-                            <th class="px-4 py-2">Actions</th>
+                            <th class="px-4 py-2"><% if (preferredLanguage === 'english') { %>Username<% } else if (preferredLanguage === 'russian') { %>Имя<% } %></th>
+                            <th class="px-4 py-2"><% if (preferredLanguage === 'english') { %>Mail<% } else if (preferredLanguage === 'russian') { %>Почта<% } %></th>
+                            <th class="px-4 py-2"><% if (preferredLanguage === 'english') { %>CreatedAt<% } else if (preferredLanguage === 'russian') { %>Создано<% } %></th>
+                            <th class="px-4 py-2"><% if (preferredLanguage === 'english') { %>UpdatedAt<% } else if (preferredLanguage === 'russian') { %>Изменено<% } %></th>
+                            <th class="px-4 py-2"><% if (preferredLanguage === 'english') { %>isAdmin<% } else if (preferredLanguage === 'russian') { %>Админ<% } %></th>
+                            <th class="px-4 py-2"><% if (preferredLanguage === 'english') { %>Actions<% } else if (preferredLanguage === 'russian') { %>Действие<% } %></th>
                         </tr>
                     </thead>
                     <tbody>
                         <% users.forEach(user => { %>
                             <tr>
-                                <td class="px-4 py-2"><%= user.id %></td>
                                 <td class="px-4 py-2"><%= user.username %></td>
+                                <td class="px-4 py-2"><%= user.mail %></td>
                                 <td class="px-4 py-2"><%= user.createdAt %></td>
                                 <td class="px-4 py-2"><%= user.updatedAt %></td>
-                                <td class="px-4 py-2"><%= user.isAdmin ? 'Yes' : 'No' %></td>
+                                <td class="px-4 py-2"><% if (preferredLanguage === 'english') { %><%= user.isAdmin ? 'Yes' : 'No' %><% } else if (preferredLanguage === 'russian') { %><%= user.isAdmin ? 'Да' : 'Нет' %><% } %></td>
                                 <td class="px-4 py-2">
-                                    <button class="text-white bg-blue-500 px-2 py-1 rounded">Edit</button>
-                                    <button class="text-white bg-red-500 px-2 py-1 rounded">Delete</button>
+                                    <!-- Add action buttons here -->
                                 </td>
                             </tr>
                         <% }); %>
@@ -82,8 +87,70 @@
                 </table>
             </div>
         </div>
+
+
+        <!-- Music Section -->
+        <div id="musicSection" class="bg-white rounded-lg shadow-md overflow-hidden p-6 hidden">
+            <h3 class="text-xl font-semibold mb-4">
+                <% if (preferredLanguage === 'english') { %>Musics<% } else if (preferredLanguage === 'russian') { %>Музыки<% } %>
+            </h3>
+            <div class="overflow-y-auto">
+                <div class="-mx-4">
+                    <table class="min-w-full">
+                        <thead>
+                            <tr class="bg-gray-200">
+                                <th class="px-4 py-2"><% if (preferredLanguage === 'english') { %>Song Name<% } else if (preferredLanguage === 'russian') { %>Песня<% } %></th>
+                                <th class="px-4 py-2"><% if (preferredLanguage === 'english') { %>Artist<% } else if (preferredLanguage === 'russian') { %>Автор<% } %></th>
+                                <th class="px-4 py-2"><% if (preferredLanguage === 'english') { %>Description<% } else if (preferredLanguage === 'russian') { %>Описание<% } %></th>
+                                <th class="px-4 py-2">CoverURL</th>
+                                <th class="px-4 py-2">MusicURL</th>
+                                <th class="px-4 py-2"><% if (preferredLanguage === 'english') { %>CreatedAt<% } else if (preferredLanguage === 'russian') { %>Создано<% } %></th>
+                                <th class="px-4 py-2"><% if (preferredLanguage === 'english') { %>UpdatedAt<% } else if (preferredLanguage === 'russian') { %>Обновлено<% } %></th>
+                                <th class="px-4 py-2"><% if (preferredLanguage === 'english') { %>Actions<% } else if (preferredLanguage === 'russian') { %>Действие<% } %></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% musics.forEach(music => { %>
+                                <tr>
+                                    <td class="px-4 py-2"><%= music.songName %></td>
+                                    <td class="px-4 py-2"><%= music.artist %></td>
+                                    <td class="px-4 py-2"><%= music.desciption %></td>
+                                    <td class="px-4 py-2" style="max-width: 200px; overflow: hidden; text-overflow: ellipsis;"><%= music.coverURL %></td>
+                                    <td class="px-4 py-2" style="max-width: 200px; overflow: hidden; text-overflow: ellipsis;"><%= music.musicURL %></td>
+                                    <td class="px-4 py-2"><%= music.createdAt %></td>
+                                    <td class="px-4 py-2"><%= music.updatedAt %></td>
+                                    <td class="px-4 py-2">
+                                        <!-- Add action buttons here -->
+                                    </td>
+                                </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
     </div>
 
+    <!-- JavaScript to handle user's choice -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const showUsersBtn = document.getElementById('showUsersBtn');
+            const showMusicBtn = document.getElementById('showMusicBtn');
+            const userManagementSection = document.getElementById('userManagementSection');
+            const musicSection = document.getElementById('musicSection');
+
+            showUsersBtn.addEventListener('click', () => {
+                userManagementSection.style.display = 'block';
+                musicSection.style.display = 'none';
+            });
+
+            showMusicBtn.addEventListener('click', () => {
+                userManagementSection.style.display = 'none';
+                musicSection.style.display = 'block';
+            });
+        });
+    </script>
 
     <!-- Google Material Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
