@@ -10,6 +10,7 @@ const requireAuth = require('./middlewares/requireAuth');
 const fmRoute = require('./routes/fileManagementRoute');
 const findLyricsRoute = require('./routes/findLyricsRoute');
 const settingsRoute = require('./routes/settingsRoute');
+const APIRoute = require('./routes/restAPI');
 
 //MongoDB Connection
 connectMongoDB();
@@ -26,6 +27,7 @@ app.use('/', authRoute);
 app.use('/', fmRoute);
 app.use('/', findLyricsRoute);
 app.use('/', settingsRoute);
+app.use('/api', APIRoute);
 
 
 app.all("*", async (req,res) => {

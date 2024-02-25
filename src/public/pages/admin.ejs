@@ -79,7 +79,7 @@
                                 <td class="px-4 py-2"><%= user.updatedAt %></td>
                                 <td class="px-4 py-2"><% if (preferredLanguage === 'english') { %><%= user.isAdmin ? 'Yes' : 'No' %><% } else if (preferredLanguage === 'russian') { %><%= user.isAdmin ? 'Да' : 'Нет' %><% } %></td>
                                 <td class="px-4 py-2">
-                                    <!-- Add action buttons here -->
+                                    <button class="bg-red-500 text-white px-4 py-2 rounded" onclick="deleteUser('<%= user._id %>')"><% if (preferredLanguage === 'english') { %>Delete<% } else if (preferredLanguage === 'russian') { %>Удалить<% } %></button>
                                 </td>
                             </tr>
                         <% }); %>
@@ -120,7 +120,7 @@
                                     <td class="px-4 py-2"><%= music.createdAt %></td>
                                     <td class="px-4 py-2"><%= music.updatedAt %></td>
                                     <td class="px-4 py-2">
-                                        <!-- Add action buttons here -->
+                                        <button class="bg-red-500 text-white px-4 py-2 rounded" onclick="deleteMusic('<%= music._id %>')"><% if (preferredLanguage === 'english') { %>Delete<% } else if (preferredLanguage === 'russian') { %>Удалить<% } %></button>
                                     </td>
                                 </tr>
                             <% }); %>
@@ -132,27 +132,9 @@
 
     </div>
 
-    <!-- JavaScript to handle user's choice -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const showUsersBtn = document.getElementById('showUsersBtn');
-            const showMusicBtn = document.getElementById('showMusicBtn');
-            const userManagementSection = document.getElementById('userManagementSection');
-            const musicSection = document.getElementById('musicSection');
-
-            showUsersBtn.addEventListener('click', () => {
-                userManagementSection.style.display = 'block';
-                musicSection.style.display = 'none';
-            });
-
-            showMusicBtn.addEventListener('click', () => {
-                userManagementSection.style.display = 'none';
-                musicSection.style.display = 'block';
-            });
-        });
-    </script>
-
     <!-- Google Material Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <script src="../scripts/admin.js"></script>
 </body>
 </html>
