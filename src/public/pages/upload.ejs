@@ -70,6 +70,15 @@
             <label for="musicFile" class="block text-gray-700 text-sm font-bold mb-2"><% if (preferredLanguage === 'english') { %>Music File:<% } else if (preferredLanguage === 'russian') { %>Файл музыки:<% } %></label>
             <input type="file" id="musicFile" name="musicFile" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
         </div>
+        <div class="mb-4">
+            <label for="artistPhoto" class="block text-gray-700 text-sm font-bold mb-2"><% if (preferredLanguage === 'english') { %>Artist Photo:<% } else if (preferredLanguage === 'russian') { %>Фотография исполнителя:<% } %></label>
+            <input type="file" id="artistPhoto" name="artistPhoto" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+        </div>
+        <div class="mb-4">
+            <label for="modalPhoto" class="block text-gray-700 text-sm font-bold mb-2"><% if (preferredLanguage === 'english') { %>Additional Photo:<% } else if (preferredLanguage === 'russian') { %>Дополнительный фото:<% } %></label>
+            <input type="file" id="modalPhoto" name="modalPhoto" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+        </div>
+                
         <div class="flex items-center justify-between">
             <button type="submit" class="bg-gray-800 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"><% if (preferredLanguage === 'english') { %>Upload<% } else if (preferredLanguage === 'russian') { %>Загрузить<% } %></button>
         </div>

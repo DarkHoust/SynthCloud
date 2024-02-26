@@ -165,30 +165,45 @@ document.addEventListener('DOMContentLoaded', () => {
             closeModal();
         } else {
             const currentMusicItem = musicItems[currentMusicIndex];
-            
             const modalTitle = document.getElementById('modalTitle');
             const modalArtist = document.getElementById('modalArtist');
             const modalDescription = document.getElementById('modalDescription');
-        
-            if (preferredLanguage === 'english') {
-                modalTitle.textContent = currentMusicItem.dataset.songname;
-                modalArtist.textContent = `By ${currentMusicItem.dataset.artist}`;
-                modalDescription.textContent = currentMusicItem.dataset.description;
-            } else if (preferredLanguage === 'russian') {
-                // modalTitle.textContent = currentMusicItem.dataset.russianSongname;
-                // modalArtist.textContent = `От ${currentMusicItem.dataset.russianArtist}`;
-                // modalDescription.textContent = currentMusicItem.dataset.russianDescription;
-                modalTitle.textContent = currentMusicItem.dataset.songname;
-                modalArtist.textContent = `От ${currentMusicItem.dataset.artist}`;
-                modalDescription.textContent = currentMusicItem.dataset.description;
-            }
-        
+            const modalPhoto = document.getElementById('modalPhoto');
+            const artistPhoto = document.getElementById('artistPhoto');
+
+            const currentMusicInfo = {
+                songName: currentMusicItem.dataset.songname,
+                artist: currentMusicItem.dataset.artist,
+                description: currentMusicItem.dataset.description
+            };
+
+            const artistPhotoUrl = currentMusicItem.querySelector('.artist-photo').value;
+            const modalPhotoUrl = currentMusicItem.querySelector('.modal-photo').value;
+
+            modalTitle.textContent = currentMusicInfo.songName;
+            modalArtist.textContent = preferredLanguage == "english" ? `By ${currentMusicInfo.artist}` : `От ${currentMusicInfo.artist}`;
+            modalDescription.textContent = currentMusicInfo.description;
+            modalPhoto.src = modalPhotoUrl;
+            artistPhoto.src = artistPhotoUrl;
+
             // Show modal
             modal.classList.remove('hidden');
             document.body.classList.add('overflow-hidden');
             isModalOpen = true;
         }
     });
+
+    // Event listener for closeButton click
+    closeButton.addEventListener('click', () => {
+        closeModal();
+    });
+
+    // Function to close modal
+    function closeModal() {
+        modal.classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+        isModalOpen = false;
+    }
 
     // Function to update modal content
     function updateModalContent(musicItem) {
@@ -201,22 +216,9 @@ document.addEventListener('DOMContentLoaded', () => {
             modalArtist.textContent = `By ${currentMusicItem.dataset.artist}`;
             modalDescription.textContent = currentMusicItem.dataset.description;
         } else if (preferredLanguage === 'russian') {
-            // modalTitle.textContent = currentMusicItem.dataset.russianSongname;
-            // modalArtist.textContent = `От ${currentMusicItem.dataset.russianArtist}`;
-            // modalDescription.textContent = currentMusicItem.dataset.russianDescription;
             modalTitle.textContent = currentMusicItem.dataset.songname;
             modalArtist.textContent = `От ${currentMusicItem.dataset.artist}`;
             modalDescription.textContent = currentMusicItem.dataset.description;
         }
-    }
-
-    closeButton.addEventListener('click', () => {
-        closeModal();
-    });
-
-    function closeModal() {
-        modal.classList.add('hidden');
-        document.body.classList.remove('overflow-hidden');
-        isModalOpen = false; // Update modal state
     }
 });

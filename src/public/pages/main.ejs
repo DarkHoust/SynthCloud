@@ -63,6 +63,9 @@
                     <div class="p-4 flex-grow">
                         <h3 class="text-lg font-semibold  song-title"> <%= musicInfo.songName %> <br> <span class="text-sm text-gray-600"><%= musicInfo.artist %></span></h3>
                     </div>
+                    <!-- Pass necessary photos -->
+                    <input type="hidden" class="artist-photo" value="<%= musicInfo.artistPhotoURL || 'https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fKbMhZMIb07mCJ6esXL.jpg' %>">
+                    <input type="hidden" class="modal-photo" value="<%= musicInfo.modalPhotoURL || musicInfo.coverURL %>">
                 </div>
             <% }) %>            
         </div>
@@ -96,12 +99,18 @@
     <!-- Modal -->
     <div id="modal" class="fixed top-12 right-0 bottom-16 bg-gray-800 sm:w-full md:w-1/2 lg:w-1/3 hidden p-8">
         <div class="flex justify-end">
-            <button id="closeModal" class="text-white hover:text-gray-500 focus:outline-none">
+            <button id="closeModal" class="text-white mb-5 hover:text-gray-500 focus:outline-none">
                 <i class="material-icons">close</i>
             </button>
         </div>
+        <img src="" alt="Modal Photo" id="modalPhoto" class="mb-4 rounded-lg">
+        
+
         <h2 class="text-2xl text-white font-semibold mb-4" id="modalTitle"><% if (preferredLanguage === 'english') { %>Song Title<% } else if (preferredLanguage === 'russian') { %>Название песни<% } %></h2>
-        <p class="text-gray-400 mb-4" id="modalArtist"><% if (preferredLanguage === 'english') { %>Artist<% } else if (preferredLanguage === 'russian') { %>Автор<% } %></p>
+        <div class="flex items-center mb-4">
+            <img src="" alt="Artist Photo" id="artistPhoto" class="w-10 h-10 rounded-full mr-2">
+            <p class="text-gray-400" id="modalArtist"></p>
+        </div>
         <p class="text-gray-400" id="modalDescription"><% if (preferredLanguage === 'english') { %>Song Description<% } else if (preferredLanguage === 'russian') { %>Об песне<% } %></p>
     </div>
 

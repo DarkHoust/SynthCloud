@@ -26,22 +26,36 @@ router.get('/upload', requireAuth, (req, res) => {
     res.render(path.join(__dirname, '..', 'public', 'pages', 'upload.ejs'), { preferredLanguage});
 });
 
-router.post('/upload', upload.fields([{ name: 'cover', maxCount: 1 }, { name: 'musicFile', maxCount: 1 }]), async (req, res) => {
+router.post('/upload', upload.fields([
+    { name: 'cover', maxCount: 1 },
+    { name: 'musicFile', maxCount: 1 },
+    { name: 'artistPhoto', maxCount: 1 },
+    { name: 'modalPhoto', maxCount: 1 }
+]), async (req, res) => {
     try {
+        // Extract form data
         const { songName, description, artistName } = req.body;
         const coverFile = req.files['cover'][0];
         const musicFile = req.files['musicFile'][0];
+        const artistPhotoFile = req.files['artistPhoto'] ? req.files['artistPhoto'][0] : null;
+        const modalPhotoFile = req.files['modalPhoto'] ? req.files['modalPhoto'][0] : null;
 
         const storage = getStorage();
-        await uploadBytesResumable(ref(storage, `${coverFile.originalname}`), coverFile.buffer);
-        await uploadBytesResumable(ref(storage, `${musicFile.originalname}`), musicFile.buffer);
+        const coverUrl = await uploadFile(storage, coverFile);
+        const musicUrl = await uploadFile(storage, musicFile);
+        const artistPhotoUrl = artistPhotoFile ? await uploadFile(storage, artistPhotoFile) : null;
+        const modalPhotoUrl = modalPhotoFile ? await uploadFile(storage, modalPhotoFile) : null;
 
-        const coverUrl = await getDownloadURL(ref(storage, `${coverFile.originalname}`));
-        const musicUrl = await getDownloadURL(ref(storage, `${musicFile.originalname}`));
-        console.log(coverUrl, musicUrl);
-
-        let newMusic = new Music({songName: songName, artist: artistName, desciption: description, coverURL: coverUrl, musicURL: musicUrl});
-        newMusic.save();
+        const newMusic = new Music({
+            songName: songName,
+            artist: artistName,
+            desciption: description,
+            coverURL: coverUrl,
+            musicURL: musicUrl,
+            artistPhotoURL: artistPhotoUrl,
+            modalPhotoURL: modalPhotoUrl
+        });
+        await newMusic.save();
 
         res.status(200).redirect('/');
     } catch (error) {
@@ -49,6 +63,12 @@ router.post('/upload', upload.fields([{ name: 'cover', maxCount: 1 }, { name: 'm
         res.status(500).send('Error uploading song.');
     }
 });
+
+async function uploadFile(storage, file) {
+    const storageRef = ref(storage, file.originalname);
+    await uploadBytesResumable(storageRef, file.buffer);
+    return getDownloadURL(storageRef);
+}
 
 module.exports = router;
 

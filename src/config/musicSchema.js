@@ -16,6 +16,12 @@ const musicSchema = new mongoose.Schema({
     musicURL: {
         type: String,
     },
+    artistPhotoURL: {
+        type: String,
+    },
+    modalPhotoURL: {
+        type: String,
+    },
     createdAt: {
         type: Date,
         default: Date.now
