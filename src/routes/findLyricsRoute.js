@@ -5,7 +5,8 @@ const path = require('path');
 const requireAuth = require('../middlewares/requireAuth');
 
 router.get('/lyrics', requireAuth, async (req, res) => {
-    res.render(path.join(__dirname, '..', 'public', 'pages', 'lyrics.ejs'), { artist: '', track: '', lyrics: '' });
+    const preferredLanguage = req.session.language || 'english';
+    res.render(path.join(__dirname, '..', 'public', 'pages', 'lyrics.ejs'), { artist: '', track: '', lyrics: '', preferredLanguage });
 });
 
 router.post('/lyrics', async (req, res) => {

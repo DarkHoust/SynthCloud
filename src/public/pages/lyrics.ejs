@@ -26,9 +26,9 @@
         <div class="container mx-auto px-4 py-2 flex justify-between items-center">
             <h1 class="text-xl font-semibold text-white"><a href="/">SynthCloud</a></h1>
             <ul class="flex space-x-4 items-center">
-                <li><a href="/" class="text-white hover:text-gray-300 me-5">Explore</a></li>
-                <li><a href="/lyrics" class="text-white hover:text-gray-300 me-5">Lyrics</a></li>
-                <li><a href="/upload" class="text-white hover:text-gray-300 me-5">Upload</a></li>
+                <li><a href="/" class="text-white hover:text-gray-300 me-5"><% if (preferredLanguage === 'english') { %>Explore<% } else if (preferredLanguage === 'russian') { %>Главное<% } %></a></li>
+                <li><a href="/lyrics" class="text-white hover:text-gray-300 me-5"><% if (preferredLanguage === 'english') { %>Lyrics<% } else if (preferredLanguage === 'russian') { %>Текст песни<% } %></a></li>
+                <li><a href="/upload" class="text-white hover:text-gray-300 me-5"><% if (preferredLanguage === 'english') { %>Upload<% } else if (preferredLanguage === 'russian') { %>Загрузить<% } %></a></li>
                 <!-- Avatar Redirecting to Profile Page -->
                 <li>
                     <a href="/profile">
@@ -47,19 +47,19 @@
 
     <!-- Main Content -->
     <div class="container mx-auto px-4 py-8">
-        <h2 class="text-2xl font-semibold mb-4">Search for Lyrics</h2>
+        <h2 class="text-2xl font-semibold mb-4"><% if (preferredLanguage === 'english') { %>Search for Lyrics<% } else if (preferredLanguage === 'russian') { %>Найти текст песни<% } %></h2>
 
         <form action="/lyrics" method="post" class="bg-white shadow-md rounded-lg px-8 pt-6 pb-8 mb-4">
             <div class="mb-4">
-                <label for="artist" class="block text-gray-700 text-sm font-bold mb-2">Artist:</label>
+                <label for="artist" class="block text-gray-700 text-sm font-bold mb-2"><% if (preferredLanguage === 'english') { %>Artist:<% } else if (preferredLanguage === 'russian') { %>Исполнитель:<% } %></label>
                 <input type="text" id="artist" name="artist" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
             </div>
             <div class="mb-4">
-                <label for="track" class="block text-gray-700 text-sm font-bold mb-2">Track Name:</label>
+                <label for="track" class="block text-gray-700 text-sm font-bold mb-2"><% if (preferredLanguage === 'english') { %>Track Name:<% } else if (preferredLanguage === 'russian') { %>Название песни:<% } %></label>
                 <input type="text" id="track" name="track" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
             </div>
             <div class="flex items-center justify-between">
-                <input type="submit" value="Search" class="bg-gray-800 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                <input type="submit" value="<% if (preferredLanguage === 'english') { %>Search<% } else if (preferredLanguage === 'russian') { %>Поиск<% } %>" class="bg-gray-800 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
             </div>
         </form>
 
@@ -68,7 +68,7 @@
                 <h2 class="text-2xl font-semibold mb-4"><%= artist %> - <%= track %></h2>
                 <pre><%= lyrics %></pre>
             <% } else if (artist && track) { %>
-                <p>No lyrics found for <%= artist %> - <%= track %>.</p>
+                <p><% if (preferredLanguage === 'english') { %>No lyrics found for <%= artist %> - <%= track %>.<% } else if (preferredLanguage === 'russian') { %>Не нашли текст для <%= artist %> - <%= track %>.<% } %></p>
             <% } %>
         </div>
     </div>

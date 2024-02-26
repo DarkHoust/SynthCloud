@@ -5,7 +5,8 @@ const requireAuth = require('../middlewares/requireAuth')
 
 
 router.get('/settings', requireAuth, async (req, res) => {
-    res.render(path.join(__dirname, '..', 'public', 'pages', 'settings.ejs'), {})
+    const preferredLanguage = req.session.language || 'english';
+    res.render(path.join(__dirname, '..', 'public', 'pages', 'settings.ejs'), {preferredLanguage})
 })
 
 router.post('/save-language', (req, res) => {

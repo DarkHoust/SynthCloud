@@ -22,7 +22,8 @@ firebase.initializeApp(firebaseConfig);
 const upload = multer();
 
 router.get('/upload', requireAuth, (req, res) => {
-    res.render(path.join(__dirname, '..', 'public', 'pages', 'upload.ejs'), {});
+    const preferredLanguage = req.session.language || 'english';
+    res.render(path.join(__dirname, '..', 'public', 'pages', 'upload.ejs'), { preferredLanguage});
 });
 
 router.post('/upload', upload.fields([{ name: 'cover', maxCount: 1 }, { name: 'musicFile', maxCount: 1 }]), async (req, res) => {

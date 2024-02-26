@@ -26,9 +26,9 @@
     <div class="container mx-auto px-4 py-2 flex justify-between items-center">
         <h1 class="text-xl font-semibold text-white"><a href="/">SynthCloud</a></h1>
         <ul class="flex space-x-4 items-center">
-            <li><a href="/" class="text-white hover:text-gray-300 me-5">Explore</a></li>
-            <li><a href="/lyrics" class="text-white hover:text-gray-300 me-5">Lyrics</a></li>
-            <li><a href="/upload" class="text-white hover:text-gray-300 me-5">Upload</a></li>
+            <li><a href="/" class="text-white hover:text-gray-300 me-5"><% if (preferredLanguage === 'english') { %>Explore<% } else if (preferredLanguage === 'russian') { %>Главное<% } %></a></li>
+            <li><a href="/lyrics" class="text-white hover:text-gray-300 me-5"><% if (preferredLanguage === 'english') { %>Lyrics<% } else if (preferredLanguage === 'russian') { %>Текст песни<% } %></a></li>
+            <li><a href="/upload" class="text-white hover:text-gray-300 me-5"><% if (preferredLanguage === 'english') { %>Upload<% } else if (preferredLanguage === 'russian') { %>Загрузить<% } %></a></li>
             <!-- Avatar Redirecting to Profile Page -->
             <li>
                 <a href="/profile">
@@ -47,31 +47,31 @@
 
 <!-- Main Content -->
 <div class="container mx-auto px-4 py-8">
-    <h2 class="text-2xl font-semibold mb-4">Upload Song</h2>
+    <h2 class="text-2xl font-semibold mb-4"><% if (preferredLanguage === 'english') { %>Upload Song<% } else if (preferredLanguage === 'russian') { %>Загрузить песню<% } %></h2>
 
     <form action="/upload" method="post" enctype="multipart/form-data" class="bg-white shadow-md rounded-lg px-8 pt-6 pb-8 mb-4">
         <div class="mb-4">
-            <label for="songName" class="block text-gray-700 text-sm font-bold mb-2">Song Name:</label>
+            <label for="songName" class="block text-gray-700 text-sm font-bold mb-2"><% if (preferredLanguage === 'english') { %>Song Name:<% } else if (preferredLanguage === 'russian') { %>Название песни:<% } %></label>
             <input type="text" id="songName" name="songName" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
         </div>
         <div class="mb-4">
-            <label for="description" class="block text-gray-700 text-sm font-bold mb-2">Description:</label>
+            <label for="description" class="block text-gray-700 text-sm font-bold mb-2"><% if (preferredLanguage === 'english') { %>Description:<% } else if (preferredLanguage === 'russian') { %>Описание:<% } %></label>
             <textarea id="description" name="description" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
         </div>
         <div class="mb-4">
-            <label for="artistName" class="block text-gray-700 text-sm font-bold mb-2">Artist Name:</label>
+            <label for="artistName" class="block text-gray-700 text-sm font-bold mb-2"><% if (preferredLanguage === 'english') { %>Artist Name:<% } else if (preferredLanguage === 'russian') { %>Автор:<% } %></label>
             <input type="text" id="artistName" name="artistName" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
         </div>
         <div class="mb-4">
-            <label for="cover" class="block text-gray-700 text-sm font-bold mb-2">Cover Image:</label>
+            <label for="cover" class="block text-gray-700 text-sm font-bold mb-2"><% if (preferredLanguage === 'english') { %>Cover Image:<% } else if (preferredLanguage === 'russian') { %>Изображение обложки:<% } %></label>
             <input type="file" id="cover" name="cover" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
         </div>
         <div class="mb-4">
-            <label for="musicFile" class="block text-gray-700 text-sm font-bold mb-2">Music File:</label>
+            <label for="musicFile" class="block text-gray-700 text-sm font-bold mb-2"><% if (preferredLanguage === 'english') { %>Music File:<% } else if (preferredLanguage === 'russian') { %>Файл музыки:<% } %></label>
             <input type="file" id="musicFile" name="musicFile" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
         </div>
         <div class="flex items-center justify-between">
-            <button type="submit" class="bg-gray-800 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Upload</button>
+            <button type="submit" class="bg-gray-800 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"><% if (preferredLanguage === 'english') { %>Upload<% } else if (preferredLanguage === 'russian') { %>Загрузить<% } %></button>
         </div>
     </form>
 </div>
