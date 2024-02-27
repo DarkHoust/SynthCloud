@@ -56,6 +56,10 @@
             <label for="russian"><% if (preferredLanguage === 'english') { %>Russian<% } else if (preferredLanguage === 'russian') { %>Русский<% } %></label><br>
             <button type="submit" class="bg-gray-800 text-white rounded-md py-2 px-4"><% if (preferredLanguage === 'english') { %>Save<% } else if (preferredLanguage === 'russian') { %>Сохранить<% } %></button>
         </form>
+
+        <button name="logoutBtn" class="text-white hover:text-gray-200 mt-5 flex justify-center w-full bg-gray-800 py-2 rounded-lg" onclick="window.location.href = '/logout'; " >
+            <i class="material-icons">logout</i>
+        </button>
     </div>
 
     <!-- Google Material Icons -->

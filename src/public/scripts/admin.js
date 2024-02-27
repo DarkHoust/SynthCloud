@@ -63,6 +63,7 @@ const openEditUserModal = (userId) => {
             document.getElementById('editUserId').value = user._id;
             document.getElementById('editUsername').value = user.username;
             document.getElementById('editUserEmail').value = user.mail;
+            document.getElementById('editUserPassword').value = '';
             modal.classList.remove('hidden');
         })
         .catch(error => {
@@ -103,10 +104,10 @@ const saveUserChanges = async () => {
     const userId = document.getElementById('editUserId').value;
     const username = document.getElementById('editUsername').value;
     const email = document.getElementById('editUserEmail').value;
-    console.log(userId, username, email);
+    const password = document.getElementById('editUserPassword').value;
 
     try {
-        const response = await fetch(`/api/users/${userId}?username=${username}&email=${email}`, {method: 'PUT'});
+        const response = await fetch(`/api/users/${userId}?username=${username}&email=${email}&password=${password}`, {method: 'PUT'});
 
         if (response.ok) {
             closeUserModal();

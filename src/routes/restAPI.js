@@ -79,7 +79,10 @@ router.put('/users/:userId', async (req, res) => {
     try {
         const userId = req.params.userId;
         const { username, email, password } = req.query;
-        await User.findByIdAndUpdate(userId, {username: username, mail: email});
+
+        const encryptedPassword = await bcrypt.hash(password, 10);
+
+        await User.findByIdAndUpdate(userId, {username: username, mail: email, password: encryptedPassword});
 
         res.json({ message: 'User updated successfully'});
     } catch (error) {
