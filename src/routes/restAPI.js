@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../config/userSchema');
 const Music = require('../config/musicSchema');
+const bcrypt = require('bcrypt');
 
 // DELETE - certain user
 router.delete('/users/:userId', async (req, res) => {
@@ -77,26 +78,56 @@ router.get('/music', async (req, res) => {
 router.put('/users/:userId', async (req, res) => {
     try {
         const userId = req.params.userId;
-        const { username, email, password } = req.body;
-        await User.findByIdAndUpdate(userId, { username, email });
-        res.json({ message: 'User updated successfully' });
+        const { username, email, password } = req.query;
+        await User.findByIdAndUpdate(userId, {username: username, mail: email});
+
+        res.json({ message: 'User updated successfully'});
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
 
+
 // PUT - update music
 router.put('/music/:musicId', async (req, res) => {
     try {
         const musicId = req.params.musicId;
-        const { songName, artist, description } = req.body;
-        await Music.findByIdAndUpdate(musicId, { songName, artist, description });
+        const { songName, artist, description } = req.query;
+
+        const updateFields = {};
+        if (songName) updateFields.songName = songName;
+        if (artist) updateFields.artist = artist;
+        if (description) updateFields.desciption = description;
+
+        await Music.findByIdAndUpdate(musicId, updateFields);
+
         res.json({ message: 'Music updated successfully' });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
+
+// POST - create user
+router.post('/users', async (req, res) => {
+    try {
+        const username = req.query.username;
+        const mail = req.query.mail;
+        const password = req.query.password;
+
+
+        const encryptedPassword = await bcrypt.hash(password, 10);
+
+        let newUser = new User({username: username, mail: mail, password: encryptedPassword, isAdmin: false});
+        newUser.save();
+
+        res.json({ message: 'User has been created successfully!' })
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
 
 module.exports = router;

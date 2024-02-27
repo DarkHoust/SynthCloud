@@ -73,18 +73,52 @@
                     <tbody>
                         <% users.forEach(user => { %>
                             <tr>
+                                <td class="hidden"> <%= user._id%></td>
                                 <td class="px-4 py-2"><%= user.username %></td>
                                 <td class="px-4 py-2"><%= user.mail %></td>
                                 <td class="px-4 py-2"><%= user.createdAt %></td>
                                 <td class="px-4 py-2"><%= user.updatedAt %></td>
                                 <td class="px-4 py-2"><% if (preferredLanguage === 'english') { %><%= user.isAdmin ? 'Yes' : 'No' %><% } else if (preferredLanguage === 'russian') { %><%= user.isAdmin ? 'Да' : 'Нет' %><% } %></td>
                                 <td class="px-4 py-2">
+                                    <button class="bg-red-500 text-white px-4 py-2 rounded" onclick="openEditUserModal('<%= user._id %>')"><% if (preferredLanguage === 'english') { %>Edit<% } else if (preferredLanguage === 'russian') { %>Изменить<% } %></button>
                                     <button class="bg-red-500 text-white px-4 py-2 rounded" onclick="deleteUser('<%= user._id %>')"><% if (preferredLanguage === 'english') { %>Delete<% } else if (preferredLanguage === 'russian') { %>Удалить<% } %></button>
                                 </td>
                             </tr>
                         <% }); %>
                     </tbody>
                 </table>
+
+                <div class="flex justify-start mt-4 ms-5">
+                    <button id="addUserBtn" class="bg-blue-500 text-white px-4 py-2 rounded"><% if (preferredLanguage === 'english') { %>Add User<% } else if (preferredLanguage === 'russian') { %>Добавить пользователя<% } %></button>
+                </div>
+            </div>
+        </div>
+
+        
+
+        <!-- Modal for creating a new user -->
+        <div id="createUserModal" class="hidden fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 justify-center items-center">
+            <div class="bg-white p-8 rounded-md">
+                <h2 class="text-lg font-semibold mb-4">
+                    <% if (preferredLanguage === 'english') { %>Create New User<% } else if (preferredLanguage === 'russian') { %>Создать нового пользователя<% } %>
+                </h2>
+                <input type="text" id="newUsername" class="w-full mb-4" placeholder="<% if (preferredLanguage === 'english') { %>Username<% } else if (preferredLanguage === 'russian') { %>Имя пользователя<% } %>">
+                <input type="password" id="newPassword" class="w-full mb-4" placeholder="<% if (preferredLanguage === 'english') { %>Password<% } else if (preferredLanguage === 'russian') { %>Пароль<% } %>">
+                <input type="email" id="newEmail" class="w-full mb-4" placeholder="<% if (preferredLanguage === 'english') { %>Email<% } else if (preferredLanguage === 'russian') { %>Эл. адрес<% } %>">
+                <button id="saveNewUserBtn" class="bg-blue-500 text-white px-4 py-2 rounded"><% if (preferredLanguage === 'english') { %>Save<% } else if (preferredLanguage === 'russian') { %>Сохранить<% } %></button>
+                <button id="closeCreateUserModalBtn" class="bg-gray-500 text-white px-4 py-2 rounded ml-4"><% if (preferredLanguage === 'english') { %>Close<% } else if (preferredLanguage === 'russian') { %>Закрыть<% } %></button>
+            </div>
+        </div>
+
+        <!-- Modal for editing user data -->
+        <div id="editUserModal" class="hidden fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 justify-center items-center">
+            <div class="bg-white p-8 rounded-md">
+                <h2 class="text-lg font-semibold mb-4">Edit User</h2>
+                <input type="text" id="editUserId" class="hidden" placeholder="Username">
+                <input type="text" id="editUsername" class="w-full mb-4" placeholder="Username">
+                <input type="email" id="editUserEmail" class="w-full mb-4" placeholder="Email">
+                <button id="saveUserChangesBtn" class="bg-blue-500 text-white px-4 py-2 rounded">Save Changes</button>
+                <button id="closeUserModalBtn" class="bg-gray-500 text-white px-4 py-2 rounded ml-4">Close</button>
             </div>
         </div>
 
@@ -112,6 +146,7 @@
                         <tbody>
                             <% musics.forEach(music => { %>
                                 <tr>
+                                    <td class="hidden"> <%= music._id%></td>
                                     <td class="px-4 py-2"><%= music.songName %></td>
                                     <td class="px-4 py-2"><%= music.artist %></td>
                                     <td class="px-4 py-2"><%= music.desciption %></td>
@@ -120,6 +155,7 @@
                                     <td class="px-4 py-2"><%= music.createdAt %></td>
                                     <td class="px-4 py-2"><%= music.updatedAt %></td>
                                     <td class="px-4 py-2">
+                                        <button class="bg-red-500 text-white px-4 py-2 rounded" onclick="openEditMusicModal('<%= music._id %>')"><% if (preferredLanguage === 'english') { %>Edit<% } else if (preferredLanguage === 'russian') { %>Изменить<% } %></button>
                                         <button class="bg-red-500 text-white px-4 py-2 rounded" onclick="deleteMusic('<%= music._id %>')"><% if (preferredLanguage === 'english') { %>Delete<% } else if (preferredLanguage === 'russian') { %>Удалить<% } %></button>
                                     </td>
                                 </tr>
@@ -131,6 +167,19 @@
 
             <div class=" w-full">
                 <button class="bg-blue-500 text-white px-4 py-2 rounded mt-5 mx-auto" onclick="window.location.href = '/upload'"><% if (preferredLanguage === 'english') { %>Add<% } else if (preferredLanguage === 'russian') { %>Добавить<% } %></button>
+            </div>
+
+            <!-- Modal for editing music data -->
+            <div id="editMusicModal" class="hidden fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 justify-center items-center">
+                <div class="bg-white p-8 rounded-md">
+                    <h2 class="text-lg font-semibold mb-4">Edit Music</h2>
+                    <input type="text" id="editMusicId" class="hidden">
+                    <input type="text" id="editSongName" class="w-full mb-4" placeholder="Song Name">
+                    <input type="text" id="editArtist" class="w-full mb-4" placeholder="Artist">
+                    <textarea id="editDescription" class="w-full mb-4" placeholder="Description"></textarea>
+                    <button id="saveMusicChangesBtn" class="bg-blue-500 text-white px-4 py-2 rounded">Save Changes</button>
+                    <button id="closeMusicModalBtn" class="bg-gray-500 text-white px-4 py-2 rounded ml-4">Close</button>
+                </div>
             </div>
         </div>
 

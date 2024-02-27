@@ -19,3 +19,8 @@
 .music-item:hover .play-button {
     display: block;
 }
+
+.description-cell {
+    max-height: 100px;
+    overflow-y: auto;
+}
