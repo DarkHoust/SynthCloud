@@ -2,8 +2,6 @@
 
 **SynthCloud** is a SoundCloud alternative, allowing users to explore, upload, and listen to music tracks online. It provides a platform for music enthusiasts to discover new artists, share their own creations, and engage with a community of fellow music lovers.
 
-(password: sultan)
-
 ***
 #### Project Structure
 
