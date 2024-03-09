@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const multer  = require('multer');
 const path = require('path');
+require('dotenv').config();
 const requireAuth = require('../middlewares/requireAuth');
 const User = require('../config/musicSchema');
 const firebase = require('firebase/app');
@@ -10,13 +11,13 @@ const Music = require('../config/musicSchema');
 require('firebase/storage');
 
 const firebaseConfig = {
-    apiKey: "AIzaSyCZQXqlAcrztIIHF69NdSAakgaOaKgmlxk",
-    authDomain: "aitu-ec006.firebaseapp.com",
-    projectId: "aitu-ec006",
-    storageBucket: "aitu-ec006.appspot.com",
-    messagingSenderId: "471941820147",
-    appId: "1:471941820147:web:b0c696be9eded39d8e5186",
-    measurementId: "G-VJ3DC033G5"
+    apiKey: process.env.FB_API,
+    authDomain: process.env.FB_Auth,
+    projectId: process.env.FB_ProjectID,
+    storageBucket: process.env.FB_StorageBucket,
+    messagingSenderId: process.env.FB_messagingSenderID,
+    appId: process.env.FB_AppID,
+    measurementId: process.env.FB_measurementID
 };
 firebase.initializeApp(firebaseConfig);
 const upload = multer();
